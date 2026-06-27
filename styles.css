@@ -1,51 +1,301 @@
+/* Swiss Editorial Design Philosophy — CSS Variables & Reset */
+:root {
+    --bg-color: #FBF9F6;      /* Sand Alabaster */
+    --text-primary: #191816;  /* Warm Charcoal */
+    --text-muted: #807B73;    /* Soft Muted Taupe */
+    --border-color: #E2DDD5;  /* Editorial Divider Cream */
+    --accent: #A5442A;        /* Terracotta / Rust */
+    --accent-light: #F4ECE6;  /* Soft Warm highlight */
+    --success: #295738;       /* Sage Green */
+    --success-light: #EBF2ED;
+
+    --font-heading: 'Instrument Serif', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'Space Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Base Editorial Page Grid */
+.editorial-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem;
+    gap: 3.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Asymmetric 2-column split layout for tablets & monitors */
+@media (min-width: 768px) {
+    .editorial-grid {
+        grid-template-columns: 4.5fr 7.5fr;
+        padding: 5rem 3rem;
+        gap: 6rem;
+    }
+    
+    .editorial-header {
+        position: sticky;
+        top: 5rem;
+        height: fit-content;
+    }
+}
+
+/* Left Column: Brand & Typography Header */
+.meta-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 7vw, 5rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+}
+
+.brand-title em {
+    font-style: italic;
+    font-family: var(--font-heading);
+    color: var(--accent);
+}
+
+.brand-description {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 380px;
+    line-height: 1.6;
+}
+
+/* Inline Notification System (Sleek Toast substitute) */
+.status-msg {
+    margin-top: 2.5rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    border-left: 2px solid transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    max-width: 380px;
+}
+
+.status-msg.success {
+    background-color: var(--success-light);
+    color: var(--success);
+    border-left-color: var(--success);
+    opacity: 1;
+}
+
+.status-msg.error {
+    background-color: #FCEBEB;
+    color: #9A2E2E;
+    border-left-color: #9A2E2E;
+    opacity: 1;
+}
+
+/* Right Column: Dynamic Form Workspace */
+.editorial-workspace {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 50px;
-    background-color: #f0f0f0;
+    gap: 4rem;
 }
 
-h1 {
-    color: #333;
+.workspace-section {
+    position: relative;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
 }
 
-input[type="file"],
-input[type="text"],
-button {
-    margin: 10px;
-    padding: 10px;
-    font-size: 16px;
+.step-num {
+    position: absolute;
+    top: -0.6rem;
+    left: 0;
+    background-color: var(--bg-color);
+    padding-right: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
 }
 
-button {
+.section-title {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* Beautiful custom File Input */
+.hidden-file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.custom-file-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100px;
+    padding: 1.5rem;
+    border: 1px dashed var(--border-color);
+    background-color: rgba(0,0,0,0.01);
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
+    transition: all 0.2s ease;
+}
+
+.custom-file-label:hover {
+    border-color: var(--text-primary);
+    background-color: var(--accent-light);
+}
+
+.label-instruction {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.file-selected-text {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    word-break: break-all;
+}
+
+/* Elegant Text Inputs */
+input[type="text"] {
+    width: 100%;
     border: none;
-    border-radius: 5px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: transparent;
+    padding: 1rem 0;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    transition: border-color 0.2s ease;
+    border-radius: 0; /* Keep it clean and geometric */
 }
 
-button:hover {
-    background-color: #0056b3;
+input[type="text"]:focus {
+    outline: none;
+    border-bottom-color: var(--text-primary);
 }
 
+input[type="text"]::placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+/* Button UI Components */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.btn {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border: 1px solid var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--text-primary);
+    color: var(--bg-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-color);
+}
+
+/* Custom Textareas */
 textarea {
-    margin-top: 20px;
-    padding: 10px;
-    font-size: 14px;
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    padding: 1.25rem;
+    font-size: 1rem;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s ease;
 }
 
-#downloadLink {
-    margin-top: 20px;
-    padding: 10px;
-    font-size: 16px;
-    color: white;
-    background-color: #28a745;
-    border-radius: 5px;
-    text-decoration: none;
+textarea:focus {
+    border-color: var(--text-primary);
+}
+
+/* Downloads & Actions Links */
+.download-container {
+    margin-top: 1.5rem;
+}
+
+.download-action {
     display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    color: var(--bg-color);
+    background-color: var(--success);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border: 1px solid var(--success);
+    transition: all 0.2s ease;
+}
+
+.download-action:hover {
+    background-color: transparent;
+    color: var(--success);
 }
