@@ -3,26 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steganography Web App</title>
+    <title>SWA — Steganography Web App</title>
+    <!-- Premium Google Fonts Stack for Swiss Editorial Design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <h1>Steganography Web App</h1>
+    <main class="editorial-grid">
+        <!-- LEFT COLUMN: Structural Brand & Intro -->
+        <header class="editorial-header">
+            <div class="meta-tag">PROJECT // SWA.v1</div>
+            <h1 class="brand-title">Steganography <em>Web App</em></h1>
+            <p class="brand-description">
+                An understated utility to embed and extract confidential messages inside the raw binary buffers of arbitrary files. Completely local, completely private.
+            </p>
+            
+            <!-- Sleek feedback notification container (replaces alerts) -->
+            <div id="statusMessage" class="status-msg"></div>
+        </header>
 
-    <input type="file" id="fileInput">
-    <br>
-    <input type="text" id="messageInput" placeholder="Enter your message">
-    <br>
-    <button onclick="encodeMessage()">Encode Message</button>
-    <button onclick="decodeMessage()">Decode Message</button>
+        <!-- RIGHT COLUMN: Workspace Controls -->
+        <section class="editorial-workspace">
+            
+            <!-- Step 1: File Loading -->
+            <div class="workspace-section">
+                <span class="step-num">01</span>
+                <h2 class="section-title">Upload Target File</h2>
+                
+                <div class="file-upload-wrapper">
+                    <input type="file" id="fileInput" class="hidden-file-input">
+                    <label for="fileInput" class="custom-file-label">
+                        <span class="label-instruction">Choose a file...</span>
+                        <span id="fileLabelText" class="file-selected-text">No file loaded</span>
+                    </label>
+                </div>
+            </div>
 
-    <h2>Encoded/Decoded Message:</h2>
-    <textarea id="result" rows="4" cols="50"></textarea>
+            <!-- Step 2: Message Input & Operations -->
+            <div class="workspace-section">
+                <span class="step-num">02</span>
+                <h2 class="section-title">Write or Process Message</h2>
+                
+                <div class="input-group">
+                    <input type="text" id="messageInput" placeholder="Type your hidden message here..." autocomplete="off">
+                </div>
 
-    <a id="downloadLink" style="display:none;">Download Encoded File</a>
+                <div class="button-group">
+                    <button id="encodeBtn" class="btn btn-primary">Encode Message</button>
+                    <button id="decodeBtn" class="btn btn-secondary">Decode Message</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Output Area -->
+            <div class="workspace-section">
+                <span class="step-num">03</span>
+                <h2 class="section-title">Results & Outputs</h2>
+                
+                <textarea id="result" rows="4" placeholder="Decoded content will appear here..." readonly></textarea>
+                
+                <div class="download-container">
+                    <a id="downloadLink" class="download-action" style="display:none;">Download Encoded File</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
 
     <script src="steganography.js"></script>
-
 </body>
 </html>
